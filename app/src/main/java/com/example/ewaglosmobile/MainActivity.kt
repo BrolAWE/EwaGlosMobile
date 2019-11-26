@@ -1,46 +1,63 @@
 package com.example.ewaglosmobile
 
+import android.lectures.createRequest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import android.widget.TextView
-import com.github.kittinunf.fuel.Fuel
-import org.jetbrains.anko.button
-import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.textView
-import org.jetbrains.anko.verticalLayout
+import com.google.gson.Gson
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var textView: TextView
+
+    lateinit var vText: TextView
+    var request: Disposable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-        verticalLayout {
+        setContentView(R.layout.activity_main)
 
-            button {
-                text = "МРПО1"
+        val vButton=findViewById<Button>(R.id.button)
+        vButton.setOnClickListener{
+ //           val i= Intent(this,SecondActivity::class.java)
+//            startActivity(i)
 
-            }.onClick {
-                mrpo1()
-            }
+            val o =
+                createRequest("https://ewaglos.herokuapp.com/api/section?format=json")
+                    .map { Gson().fromJson(it, SectionAPI::class.java) }
+                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
-            textView = textView {
-                text = ""
-            }
+            request = o.subscribe({
+                for (section in it.sections)
+                    Log.w("tag", "color ${section.color} code ${section.code} translations ${section.translations[0].name}")
+            }, {
+                Log.e("tag", "", it)
+            })
         }
+
+
     }
 
-    private fun mrpo1() {
-        Thread {
-            val (request, response, result) = Fuel.get("https://ewaglos.herokuapp.com/api/section?format=json")
-                .responseString()
-            runOnUiThread {
-                result.fold({ data ->
-                    textView.text = "${data}"
-                }, { error ->
-                    textView.text = error.localizedMessage
-                })
-            }
-        }.start()
-
+    override fun onDestroy() {
+        request?.dispose()
+        super.onDestroy()
     }
 }
+
+class SectionAPI(
+    val sections: ArrayList<SectionItemAPI>
+)
+
+class TranslationItemAPI(
+    val language: String,
+    val name: String
+)
+
+class SectionItemAPI(
+    val code: String,
+    val color: String,
+    val translations: ArrayList<TranslationItemAPI>
+)
