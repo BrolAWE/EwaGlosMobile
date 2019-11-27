@@ -13,26 +13,26 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class SecondActivity : Activity() {
+class FourthActivity : Activity() {
 
     lateinit var vText: TextView
     lateinit var vList: LinearLayout
     var request: Disposable? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.second_activity)
 
-        vList=findViewById<LinearLayout>(R.id.sec_list)
+        vList = findViewById<LinearLayout>(R.id.sec_list)
+        val str = intent.getStringExtra("tag1")
 
         val o =
-            createRequest("https://ewaglos.herokuapp.com/api/section?format=json")
-                .map { Gson().fromJson(it, SectionAPI::class.java) }
+            createRequest("https://ewaglos.herokuapp.com/api/words/"+str+"?format=json")
+                .map { Gson().fromJson(it, WordsAPI::class.java) }
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         request = o.subscribe({
-            ShowLinearLayout(it.sections)
+            ShowLinearLayout(it.words)
         }, {
             Log.e("tag", "", it)
         })
@@ -43,15 +43,14 @@ class SecondActivity : Activity() {
         super.onDestroy()
     }
 
-    fun ShowLinearLayout(sectionList:ArrayList<SectionItemAPI>){
-        val inflater=layoutInflater
-        for(f in sectionList){
-            val view=inflater.inflate(R.layout.list_item, vList, false)
-            val vTitle=view.findViewById<TextView>(R.id.item_title)
-            vTitle.text=f.translations[0].name
-            vTitle.setTextColor(Color.parseColor(f.color))
+    fun ShowLinearLayout(sectionList: ArrayList<WordItemAPI>) {
+        val inflater = layoutInflater
+        for (f in sectionList) {
+            val view = inflater.inflate(R.layout.list_item, vList, false)
+            val vTitle = view.findViewById<TextView>(R.id.item_title)
+            vTitle.text = f.translations[0].name
             vTitle.setOnClickListener {
-                val i = Intent(this, ThirdActivity::class.java)
+                val i = Intent(this, FifthActivity::class.java)
                 i.putExtra("tag1", f.code)
                 startActivityForResult(i, 0)
             }
@@ -61,17 +60,32 @@ class SecondActivity : Activity() {
 
 }
 
-class SectionAPI(
-    val sections: ArrayList<SectionItemAPI>
+class WordsAPI(
+    val words: ArrayList<WordItemAPI>
 )
 
-class SectionTranslationItemAPI(
+
+class SynonymItemAPI(
+    val synonym: String
+)
+
+class CloseSenseItemAPI(
+    val close_sense: String
+)
+
+
+class WordTranslationItemAPI(
     val language: String,
-    val name: String
+    val name: String,
+    val definition: String,
+    val comment: String,
+    val image_description: String,
+    val synonyms: ArrayList<SynonymItemAPI>
 )
 
-class SectionItemAPI(
+class WordItemAPI(
     val code: String,
-    val color: String,
-    val translations: ArrayList<SectionTranslationItemAPI>
+    val image: String,
+    val translations: ArrayList<WordTranslationItemAPI>,
+    val close_senses: ArrayList<CloseSenseItemAPI>
 )
