@@ -25,8 +25,6 @@ class FifthActivity : Activity() {
         val str = intent.getStringExtra("tag1")
         val vWord=findViewById<TextView>(R.id.textView3)
         val vTranslation=findViewById<TextView>(R.id.textView4)
-        vWord.setText("aaa")
-        vTranslation.setText("bbb")
 
         val o =
             createRequest("https://ewaglos.herokuapp.com/api/word/"+str+"?format=json")
