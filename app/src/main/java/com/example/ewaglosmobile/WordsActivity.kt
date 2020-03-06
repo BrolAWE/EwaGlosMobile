@@ -32,6 +32,7 @@ class FourthActivity : Activity() {
 
         vRecView = findViewById<RecyclerView>(R.id.act4_recView)
         val str = intent.getStringExtra("tag1")
+        val lan=intent.getStringExtra("lan")
 
         val o =
             createRequest("https://ewaglos.herokuapp.com/api/words/"+str+"?format=json")
@@ -39,7 +40,7 @@ class FourthActivity : Activity() {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         request = o.subscribe({
-            showRecccView(it.words)
+            showRecView(it.words, lan)
         }, {
             Log.e("tag", "", it)
         })
@@ -50,46 +51,9 @@ class FourthActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecccView(wordList: ArrayList<WordItemAPI>){
-        vRecView.adapter= RecccAdapter(this,wordList)
+    fun showRecView(wordList: ArrayList<WordItemAPI>, lan:String){
+        vRecView.adapter= WordsRecAdapter(this,wordList, lan)
         vRecView.layoutManager= LinearLayoutManager(this)
     }
 
-}
-
-private class RecccAdapter(var mContext: Context, val words: ArrayList<WordItemAPI>) : RecyclerView.Adapter<RecccHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecccHolder {
-        val inflater= LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.list_item, parent, false)
-        return RecccHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return words.size
-    }
-
-    override fun onBindViewHolder(holder: RecccHolder, position: Int) {
-        val word=words[position]
-        holder.bind(mContext,word)
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
-
-
-}
-
-class RecccHolder(view: View):RecyclerView.ViewHolder(view){
-    fun bind(mContext: Context,word:WordItemAPI){
-        val vTitle=itemView.findViewById<TextView>(R.id.item_title)
-        val vThumb=itemView.findViewById<ImageView>(R.id.item_thumb)
-        vTitle.text=word.translations[0].name
-        Picasso.with(vThumb.context).load("https://res.cloudinary.com/hucj3dnre/"+word.image).into(vThumb)
-        itemView.setOnClickListener {
-            val i = Intent(mContext, FifthActivity::class.java)
-            i.putExtra("tag1", word.code)
-            mContext.startActivity(i)
-        }
-    }
 }

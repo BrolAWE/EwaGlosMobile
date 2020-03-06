@@ -28,6 +28,7 @@ class ThirdActivity : Activity() {
 
         vRecView = findViewById<RecyclerView>(R.id.act3_recView)
         val str = intent.getStringExtra("tag1")
+        val lan=intent.getStringExtra("lan")
 
         val o =
             createRequest("https://ewaglos.herokuapp.com/api/subsection/" + str + "?format=json")
@@ -35,7 +36,7 @@ class ThirdActivity : Activity() {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         request = o.subscribe({
-            showRecView(it.subsections)
+            showRecView(it.subsections, lan)
         }, {
             Log.e("tag", "", it)
         })
@@ -46,48 +47,9 @@ class ThirdActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecView(sectionList: ArrayList<SubsectionItemAPI>) {
-        vRecView.adapter = SubsectionsRecAdapter(this, sectionList)
+    fun showRecView(sectionList: ArrayList<SubsectionItemAPI>,lan:String) {
+        vRecView.adapter = SubsectionsRecAdapter(this, sectionList, lan)
         vRecView.layoutManager = LinearLayoutManager(this)
     }
 
-}
-
-private class SubsectionsRecAdapter(var mContext: Context, val subsections: ArrayList<SubsectionItemAPI>) :
-    RecyclerView.Adapter<RecHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.list_item, parent, false)
-        return RecHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return subsections.size
-    }
-
-    override fun onBindViewHolder(holder: RecHolder, position: Int) {
-        val subsection = subsections[position]
-        holder.bind(mContext, subsection)
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
-
-
-}
-
-class RecHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(mContext: Context, subsection: SubsectionItemAPI) {
-        val vTitle = itemView.findViewById<TextView>(R.id.item_title)
-        val vThumb = itemView.findViewById<ImageView>(R.id.item_thumb)
-        vTitle.text = subsection.translations[0].name
-        vTitle.setTextColor(Color.parseColor(subsection.color))
-        vThumb.setBackgroundColor(Color.parseColor(subsection.color))
-        itemView.setOnClickListener {
-            val i = Intent(mContext, FourthActivity::class.java)
-            i.putExtra("tag1", subsection.code)
-            mContext.startActivity(i)
-        }
-    }
 }

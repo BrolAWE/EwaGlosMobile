@@ -13,8 +13,6 @@ import io.reactivex.schedulers.Schedulers
 class FifthActivity : Activity() {
 
     lateinit var vText: TextView
-    lateinit var Word: TextView
-    lateinit var Translation: TextView
     var request: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +20,7 @@ class FifthActivity : Activity() {
         setContentView(R.layout.activity_word)
 
         val str = intent.getStringExtra("tag1")
+        val lan=intent.getStringExtra("lan")
         val vWord=findViewById<TextView>(R.id.textView3)
         val vTranslation=findViewById<TextView>(R.id.textView4)
 
@@ -31,8 +30,16 @@ class FifthActivity : Activity() {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         request = o.subscribe({
-            vWord.setText(it.translations[0].name)
-            vTranslation.setText(it.translations[1].name)
+            for (item in it.translations){
+                if(item.language=="RU"){
+                    vWord.setText(item.name)
+                }
+            }
+            for (item in it.translations){
+                if(item.language=="EN"){
+                    vTranslation.setText(item.name)
+                }
+            }
 
         }, {
             Log.e("tag", "", it)
