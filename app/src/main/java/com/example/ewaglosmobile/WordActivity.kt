@@ -4,7 +4,6 @@ import android.app.Activity
 import android.lectures.createRequest
 import android.os.Bundle
 import android.util.Log
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +19,7 @@ class FifthActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fifth_activity)
+        setContentView(R.layout.activity_word)
 
         val str = intent.getStringExtra("tag1")
         val vWord=findViewById<TextView>(R.id.textView3)
@@ -46,32 +45,3 @@ class FifthActivity : Activity() {
     }
 
 }
-
-class WordAPI(
-    val word: ArrayList<WordsItemAPI>
-)
-
-class SynonymsItemAPI(
-    val synonym: String
-)
-
-class CloseSensesItemAPI(
-    val close_sense: String
-)
-
-
-class WordTranslationsItemAPI(
-    val language: String,
-    val name: String,
-    val definition: String,
-    val comment: String,
-    val image_description: String,
-    val synonyms: ArrayList<SynonymsItemAPI>
-)
-
-class WordsItemAPI(
-    val code: String,
-    val image: String,
-    val translations: ArrayList<WordTranslationsItemAPI>,
-    val close_senses: ArrayList<CloseSensesItemAPI>
-)

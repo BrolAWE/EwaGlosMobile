@@ -11,10 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -28,7 +24,7 @@ class ThirdActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.third_activity)
+        setContentView(R.layout.activity_subsections)
 
         vRecView = findViewById<RecyclerView>(R.id.act3_recView)
         val str = intent.getStringExtra("tag1")
@@ -50,31 +46,17 @@ class ThirdActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecView(sectionList: ArrayList<SubsectionItemAPI>){
-        vRecView.adapter= RecAdapter(this,sectionList)
-        vRecView.layoutManager=LinearLayoutManager(this)
+    fun showRecView(sectionList: ArrayList<SubsectionItemAPI>) {
+        vRecView.adapter = SubsectionsRecAdapter(this, sectionList)
+        vRecView.layoutManager = LinearLayoutManager(this)
     }
 
 }
 
-class SubsectionAPI(
-    val subsections: ArrayList<SubsectionItemAPI>
-)
-
-class SubsectionTranslationItemAPI(
-    val language: String,
-    val name: String
-)
-
-class SubsectionItemAPI(
-    val code: String,
-    val color: String,
-    val translations: ArrayList<SubsectionTranslationItemAPI>
-)
-
-private class RecAdapter(var mContext:Context,val subsections: ArrayList<SubsectionItemAPI>) : RecyclerView.Adapter<RecHolder>() {
+private class SubsectionsRecAdapter(var mContext: Context, val subsections: ArrayList<SubsectionItemAPI>) :
+    RecyclerView.Adapter<RecHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
-        val inflater=LayoutInflater.from(parent.context)
+        val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.list_item, parent, false)
         return RecHolder(view)
     }
@@ -84,8 +66,8 @@ private class RecAdapter(var mContext:Context,val subsections: ArrayList<Subsect
     }
 
     override fun onBindViewHolder(holder: RecHolder, position: Int) {
-        val subsection=subsections[position]
-        holder.bind(mContext,subsection)
+        val subsection = subsections[position]
+        holder.bind(mContext, subsection)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -95,11 +77,11 @@ private class RecAdapter(var mContext:Context,val subsections: ArrayList<Subsect
 
 }
 
-class RecHolder(view:View):RecyclerView.ViewHolder(view){
-    fun bind(mContext: Context,subsection:SubsectionItemAPI){
-        val vTitle=itemView.findViewById<TextView>(R.id.item_title)
-        val vThumb=itemView.findViewById<ImageView>(R.id.item_thumb)
-        vTitle.text=subsection.translations[0].name
+class RecHolder(view: View) : RecyclerView.ViewHolder(view) {
+    fun bind(mContext: Context, subsection: SubsectionItemAPI) {
+        val vTitle = itemView.findViewById<TextView>(R.id.item_title)
+        val vThumb = itemView.findViewById<ImageView>(R.id.item_thumb)
+        vTitle.text = subsection.translations[0].name
         vTitle.setTextColor(Color.parseColor(subsection.color))
         vThumb.setBackgroundColor(Color.parseColor(subsection.color))
         itemView.setOnClickListener {

@@ -3,7 +3,6 @@ package com.example.ewaglosmobile
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.lectures.createRequest
 import android.os.Bundle
 import android.util.Log
@@ -24,13 +23,11 @@ import io.reactivex.schedulers.Schedulers
 class FourthActivity : Activity() {
 
     lateinit var vRecView: RecyclerView
-    lateinit var vText: TextView
-    lateinit var vList: LinearLayout
     var request: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fourth_activity)
+        setContentView(R.layout.activity_words)
 
 
         vRecView = findViewById<RecyclerView>(R.id.act4_recView)
@@ -53,57 +50,12 @@ class FourthActivity : Activity() {
         super.onDestroy()
     }
 
-    fun ShowLinearLayout(sectionList: ArrayList<WordItemAPI>) {
-        val inflater = layoutInflater
-        for (f in sectionList) {
-            val view = inflater.inflate(R.layout.list_item, vList, false)
-            val vTitle = view.findViewById<TextView>(R.id.item_title)
-            vTitle.text = f.translations[0].name
-            vTitle.setOnClickListener {
-                val i = Intent(this, FifthActivity::class.java)
-                i.putExtra("tag1", f.code)
-                startActivityForResult(i, 0)
-            }
-            vList.addView(view)
-        }
-    }
-
     fun showRecccView(wordList: ArrayList<WordItemAPI>){
         vRecView.adapter= RecccAdapter(this,wordList)
         vRecView.layoutManager= LinearLayoutManager(this)
     }
 
 }
-
-class WordsAPI(
-    val words: ArrayList<WordItemAPI>
-)
-
-
-class SynonymItemAPI(
-    val synonym: String
-)
-
-class CloseSenseItemAPI(
-    val close_sense: String
-)
-
-
-class WordTranslationItemAPI(
-    val language: String,
-    val name: String,
-    val definition: String,
-    val comment: String,
-    val image_description: String,
-    val synonyms: ArrayList<SynonymItemAPI>
-)
-
-class WordItemAPI(
-    val code: String,
-    val image: String,
-    val translations: ArrayList<WordTranslationItemAPI>,
-    val close_senses: ArrayList<CloseSenseItemAPI>
-)
 
 private class RecccAdapter(var mContext: Context, val words: ArrayList<WordItemAPI>) : RecyclerView.Adapter<RecccHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecccHolder {
