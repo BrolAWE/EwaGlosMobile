@@ -12,7 +12,7 @@ class IndexActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
 
-        var lan="RU"
+        var lan="EN"
         val vButton = findViewById<Button>(R.id.button_open)
         val vCheckRu = findViewById<RadioButton>(R.id.radioButton_ru)
         val vCheckEn = findViewById<RadioButton>(R.id.radioButton_en)
