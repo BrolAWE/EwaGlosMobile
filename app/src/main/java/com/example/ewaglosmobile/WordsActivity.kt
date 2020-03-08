@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class FourthActivity : Activity() {
+class WordsActivity : Activity() {
 
     lateinit var vRecView: RecyclerView
     var request: Disposable? = null

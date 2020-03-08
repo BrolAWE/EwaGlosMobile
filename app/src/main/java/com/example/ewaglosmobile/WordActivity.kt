@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class FifthActivity : Activity() {
+class WordActivity : Activity() {
 
     var request: Disposable? = null
 

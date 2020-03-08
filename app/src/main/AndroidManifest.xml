@@ -20,9 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SectionsActivity" />
-        <activity android:name=".ThirdActivity" />
-        <activity android:name=".FourthActivity" />
-        <activity android:name=".FifthActivity" />
+        <activity android:name=".SubsectionsActivity" />
+        <activity android:name=".WordsActivity" />
+        <activity android:name=".WordActivity" />
         <activity android:name=".SearchActivity" />
     </application>
 
