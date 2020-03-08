@@ -22,7 +22,7 @@ class SectionsRecHolder(view: View,lan:String) : RecyclerView.ViewHolder(view) {
         vTitle.setTextColor(Color.parseColor(section.color))
         vThumb.setBackgroundColor(Color.parseColor(section.color))
         itemView.setOnClickListener {
-            val i = Intent(mContext, ThirdActivity::class.java)
+            val i = Intent(mContext, SubsectionsActivity::class.java)
             i.putExtra("tag1", section.code)
             i.putExtra("lan",lan)
             mContext.startActivity(i)
@@ -43,7 +43,7 @@ class SubsectionRecHolder(view: View, lan:String) : RecyclerView.ViewHolder(view
         vTitle.setTextColor(Color.parseColor(subsection.color))
         vThumb.setBackgroundColor(Color.parseColor(subsection.color))
         itemView.setOnClickListener {
-            val i = Intent(mContext, FourthActivity::class.java)
+            val i = Intent(mContext, WordsActivity::class.java)
             i.putExtra("tag1", subsection.code)
             i.putExtra("lan",lan)
             mContext.startActivity(i)
@@ -63,7 +63,7 @@ class WordsRecHolder(view: View, lan:String):RecyclerView.ViewHolder(view){
         }
         Picasso.with(vThumb.context).load("https://res.cloudinary.com/hucj3dnre/"+word.image).into(vThumb)
         itemView.setOnClickListener {
-            val i = Intent(mContext, FifthActivity::class.java)
+            val i = Intent(mContext, WordActivity::class.java)
             i.putExtra("tag1", word.code)
             i.putExtra("lan",lan)
             mContext.startActivity(i)
