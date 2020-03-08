@@ -14,21 +14,21 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Project description" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textView_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|fill_vertical"
                 android:text="Heritage in Europe is a key element in the cultural identity of the many nations on our small continent. Conservation-restoration as a discipline and profession is directly involved in the safeguarding of this heritage for future generations. The discipline has a long history evolving over many centuries and spreading across Europe. Today, conservator-restorers share common professional principles and although communication is not always easy in a continent rich in languages, a professional terminology has developed both at national level and international level. Terminology at national level may have some specific features, often related to the regional techniques and materials used, or specific characteristics of the cultural heritage in a particular country. This fact reflects the diversity of our heritage, but at the same time it can cause difficulties in communication. It is critical for the professionals in conservation-restoration to be able to understand each other in what is now a highly professionalised field and to communicate correctly, explicitly and easily. Clear and exact communication not only guarantees better results, but helps avoid misunderstandings and reduces the risk of malpractice in the conservation and restoration of cultural heritage. Wall paintings and architectural surfaces are a significant part of the European heritage. The traditions of conservationrestoration within this facet of heritage can be traced back to the Renaissance. In spite of the cultural diversity, the principles in the conservation and restoration of wall paintings and architectural surfaces are the same around the continent. nevertheless, there is no multilingual dictionary to help professionals in their practice and use of language. Several attempts were made in the last decade to create such a dictionary, but without success so far. The EwaGlos project is an admirable initiative in this direction. With its eleven languages, this is going to be the most ambitious dictionary to date. It will be an important instrument for communication which, undoubtedly, will benefit both conservator-restorers and other professionals involved in the preservation of wall paintings and architectural surfaces. last but not least, the dictionary will facilitate and encourage mobility and joint initiatives between conservator-restorers throughout Europe." />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView_foot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"

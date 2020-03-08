@@ -12,19 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IndexActivity">
+        <activity android:name=".IndexActivity"
+            android:configChanges="orientation">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SectionsActivity" />
-        <activity android:name=".SubsectionsActivity" />
-        <activity android:name=".WordsActivity" />
-        <activity android:name=".WordActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".AboutActivity" />
+        <activity android:name=".SectionsActivity" android:configChanges="orientation"/>
+        <activity android:name=".SubsectionsActivity" android:configChanges="orientation"/>
+        <activity android:name=".WordsActivity" android:configChanges="orientation"/>
+        <activity android:name=".WordActivity" android:configChanges="orientation"/>
+        <activity android:name=".SearchActivity" android:configChanges="orientation"/>
+        <activity android:name=".AboutActivity" android:configChanges="orientation"/>
     </application>
 
 </manifest>
