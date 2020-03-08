@@ -1,5 +1,6 @@
 package com.example.ewaglosmobile
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 
-class IndexActivity : AppCompatActivity() {
+class IndexActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,11 @@ class IndexActivity : AppCompatActivity() {
             val i = Intent(this, SearchActivity::class.java)
             i.putExtra("lan", lan)
             i.putExtra("tag1", tag1.toString())
+            startActivity(i)
+        }
+        vButtonAbout.setOnClickListener {
+            val i = Intent(this, AboutActivity::class.java)
+            i.putExtra("lan", lan)
             startActivity(i)
         }
     }

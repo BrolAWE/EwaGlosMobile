@@ -24,6 +24,7 @@
         <activity android:name=".WordsActivity" />
         <activity android:name=".WordActivity" />
         <activity android:name=".SearchActivity" />
+        <activity android:name=".AboutActivity" />
     </application>
 
 </manifest>
