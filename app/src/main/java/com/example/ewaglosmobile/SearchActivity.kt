@@ -28,7 +28,7 @@ class SearchActivity : Activity() {
 
         val o =
             createRequest("https://ewaglos.herokuapp.com/api/search?format=json&q="+str)
-                .map { Gson().fromJson(it, WordsAPI::class.java) }
+                .map { Gson().fromJson(it, WordAPI::class.java) }
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         request = o.subscribe({

@@ -43,7 +43,7 @@ class WordActivity : Activity() {
 
         val o =
             createRequest("https://ewaglos.herokuapp.com/api/word/" + str + "?format=json")
-                .map { Gson().fromJson(it, WordsItemAPI::class.java) }
+                .map { Gson().fromJson(it, WordItemAPI::class.java) }
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         request = o.subscribe({

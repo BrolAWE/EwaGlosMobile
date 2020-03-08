@@ -1,12 +1,10 @@
 package com.example.ewaglosmobile
 
+import io.realm.RealmList
+import io.realm.RealmObject
+
 class SectionAPI(
     val sections: ArrayList<SectionItemAPI>
-)
-
-class SectionTranslationItemAPI(
-    val language: String,
-    val name: String
 )
 
 class SectionItemAPI(
@@ -15,13 +13,29 @@ class SectionItemAPI(
     val translations: ArrayList<SectionTranslationItemAPI>
 )
 
-class SubsectionAPI(
-    val subsections: ArrayList<SubsectionItemAPI>
-)
+open class SectionTranslationItem(
+    var language: String = "",
+    var name: String = ""
+) : RealmObject()
 
-class SubsectionTranslationItemAPI(
+open class Section(
+    var sections: RealmList<SectionItem> = RealmList<SectionItem>()
+) : RealmObject()
+
+open class SectionItem(
+    var code: String = "",
+    var color: String = "",
+    var translations: RealmList<SectionTranslationItem> = RealmList<SectionTranslationItem>()
+) : RealmObject()
+
+class SectionTranslationItemAPI(
     val language: String,
     val name: String
+)
+
+
+class SubsectionAPI(
+    val subsections: ArrayList<SubsectionItemAPI>
 )
 
 class SubsectionItemAPI(
@@ -30,19 +44,21 @@ class SubsectionItemAPI(
     val translations: ArrayList<SubsectionTranslationItemAPI>
 )
 
-class WordsAPI(
+class SubsectionTranslationItemAPI(
+    val language: String,
+    val name: String
+)
+
+class WordAPI(
     val words: ArrayList<WordItemAPI>
 )
 
-
-class SynonymItemAPI(
-    val synonym: String
+class WordItemAPI(
+    val code: String,
+    val image: String,
+    val translations: ArrayList<WordTranslationItemAPI>,
+    val close_senses: ArrayList<CloseSenseItemAPI>
 )
-
-class CloseSenseItemAPI(
-    val close_sense: String
-)
-
 
 class WordTranslationItemAPI(
     val language: String,
@@ -53,38 +69,14 @@ class WordTranslationItemAPI(
     val synonyms: ArrayList<SynonymItemAPI>
 )
 
-class WordItemAPI(
-    val code: String,
-    val image: String,
-    val translations: ArrayList<WordTranslationItemAPI>,
-    val close_senses: ArrayList<CloseSenseItemAPI>
-)
-
-class WordAPI(
-    val word: ArrayList<WordsItemAPI>
-)
-
-class SynonymsItemAPI(
+class SynonymItemAPI(
     val synonym: String
 )
 
-class CloseSensesItemAPI(
+class CloseSenseItemAPI(
     val close_sense: String
 )
 
 
-class WordTranslationsItemAPI(
-    val language: String,
-    val name: String,
-    val definition: String,
-    val comment: String,
-    val image_description: String,
-    val synonyms: ArrayList<SynonymsItemAPI>
-)
 
-class WordsItemAPI(
-    val code: String,
-    val image: String,
-    val translations: ArrayList<WordTranslationsItemAPI>,
-    val close_senses: ArrayList<CloseSensesItemAPI>
-)
+
