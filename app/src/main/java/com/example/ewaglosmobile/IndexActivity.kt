@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.RadioButton
 
 class IndexActivity : AppCompatActivity() {
@@ -12,22 +13,36 @@ class IndexActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
 
-        var lan="EN"
-        val vButton = findViewById<Button>(R.id.button_open)
+        var lan = "EN"
+        val vButtonOpen = findViewById<Button>(R.id.button_open)
+        val vButtonAbout = findViewById<Button>(R.id.button_about)
+        val vButtonSearch = findViewById<Button>(R.id.button_search)
         val vCheckRu = findViewById<RadioButton>(R.id.radioButton_ru)
         val vCheckEn = findViewById<RadioButton>(R.id.radioButton_en)
-        vButton.setOnClickListener {
-            val i = Intent(this, SecondActivity::class.java)
-            i.putExtra("lan",lan)
+        val vEditText = findViewById<EditText>(R.id.editText_search)
+        vButtonOpen.setOnClickListener {
+            val i = Intent(this, SectionsActivity::class.java)
+            i.putExtra("lan", lan)
             startActivity(i)
         }
         vCheckRu.setOnClickListener {
-            vButton.setText("Открыть словарь")
-            lan="RU"
+            vButtonOpen.setText("Открыть словарь")
+            vButtonAbout.setText("О проекте")
+            vButtonSearch.setText("Поиск")
+            lan = "RU"
         }
         vCheckEn.setOnClickListener {
-            vButton.setText("Open book")
-            lan="EN"
+            vButtonOpen.setText("Open book")
+            vButtonAbout.setText("About")
+            vButtonSearch.setText("Search")
+            lan = "EN"
+        }
+        vButtonSearch.setOnClickListener {
+            val tag1 = vEditText.text
+            val i = Intent(this, SearchActivity::class.java)
+            i.putExtra("lan", lan)
+            i.putExtra("tag1", tag1.toString())
+            startActivity(i)
         }
     }
 }
