@@ -37,7 +37,7 @@ class SectionsRecAdapter(
 
 class SubsectionsRecAdapter(
     var mContext: Context,
-    val subsections: ArrayList<SubsectionItemAPI>,
+    val subsections: RealmList<SubsectionItem>,
     lan: String
 ) :
     RecyclerView.Adapter<SubsectionRecHolder>() {
@@ -53,8 +53,8 @@ class SubsectionsRecAdapter(
     }
 
     override fun onBindViewHolder(holder: SubsectionRecHolder, position: Int) {
-        val subsection = subsections[position]
-        holder.bind(mContext, subsection)
+        val subsection = subsections[position]!!
+        holder?.bind(mContext, subsection)
     }
 
     override fun getItemViewType(position: Int): Int {

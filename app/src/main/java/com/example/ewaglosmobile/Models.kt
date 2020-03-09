@@ -37,16 +37,31 @@ class SubsectionAPI(
     val subsections: ArrayList<SubsectionItemAPI>
 )
 
+open class Subsection(
+    var subsections: RealmList<SubsectionItem> = RealmList<SubsectionItem>()
+) : RealmObject()
+
 class SubsectionItemAPI(
     val code: String,
     val color: String,
     val translations: ArrayList<SubsectionTranslationItemAPI>
 )
 
+open class SubsectionItem(
+    var code: String = "",
+    var color: String = "",
+    var translations: RealmList<SubsectionTranslationItem> = RealmList<SubsectionTranslationItem>()
+) : RealmObject()
+
 class SubsectionTranslationItemAPI(
     val language: String,
     val name: String
 )
+
+open class SubsectionTranslationItem(
+    var language: String = "",
+    var name: String = ""
+) : RealmObject()
 
 class WordAPI(
     val words: ArrayList<WordItemAPI>

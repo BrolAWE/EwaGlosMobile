@@ -72,7 +72,9 @@ class SectionsActivity : Activity() {
 
 
             }
+
             showRecView(lan)
+
         }, {
             Log.e("tag", "", it)
             showRecView(lan)
@@ -93,8 +95,6 @@ class SectionsActivity : Activity() {
                 vRecView.layoutManager = LinearLayoutManager(this)
             }
         }
-
-
     }
 
 }

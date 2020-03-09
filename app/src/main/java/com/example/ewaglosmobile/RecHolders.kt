@@ -32,7 +32,7 @@ class SectionsRecHolder(view: View,lan:String) : RecyclerView.ViewHolder(view) {
 
 class SubsectionRecHolder(view: View, lan:String) : RecyclerView.ViewHolder(view) {
     val lan=lan
-    fun bind(mContext: Context, subsection: SubsectionItemAPI) {
+    fun bind(mContext: Context, subsection: SubsectionItem) {
         val vTitle = itemView.findViewById<TextView>(R.id.item_title)
         val vThumb = itemView.findViewById<ImageView>(R.id.item_thumb)
         for (item in subsection.translations){
@@ -40,8 +40,8 @@ class SubsectionRecHolder(view: View, lan:String) : RecyclerView.ViewHolder(view
                 vTitle.text = item.name
             }
         }
-        vTitle.setTextColor(Color.parseColor(subsection.color))
-        vThumb.setBackgroundColor(Color.parseColor(subsection.color))
+        vTitle.setTextColor(Color.parseColor(subsection.color!!))
+        vThumb.setBackgroundColor(Color.parseColor(subsection.color!!))
         itemView.setOnClickListener {
             val i = Intent(mContext, WordsActivity::class.java)
             i.putExtra("tag1", subsection.code)
