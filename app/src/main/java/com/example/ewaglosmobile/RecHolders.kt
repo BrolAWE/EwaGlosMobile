@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 
 class SectionsRecHolder(view: View,lan:String) : RecyclerView.ViewHolder(view) {
     val lan=lan
-    fun bind(mContext: Context, section: SectionItemAPI) {
+    fun bind(mContext: Context, section: SectionItem) {
         val vTitle = itemView.findViewById<TextView>(R.id.item_title)
         val vThumb = itemView.findViewById<ImageView>(R.id.item_thumb)
         for (item in section.translations){
@@ -19,8 +19,8 @@ class SectionsRecHolder(view: View,lan:String) : RecyclerView.ViewHolder(view) {
                 vTitle.text = item.name
             }
         }
-        vTitle.setTextColor(Color.parseColor(section.color))
-        vThumb.setBackgroundColor(Color.parseColor(section.color))
+        vTitle.setTextColor(Color.parseColor(section.color!!))
+        vThumb.setBackgroundColor(Color.parseColor(section.color!!))
         itemView.setOnClickListener {
             val i = Intent(mContext, SubsectionsActivity::class.java)
             i.putExtra("tag1", section.code)

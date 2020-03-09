@@ -4,10 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import io.realm.RealmList
 
 class SectionsRecAdapter(
     var mContext: Context,
-    val sections: ArrayList<SectionItemAPI>,
+    val sections: RealmList<SectionItem>,
     lan: String
 ) :
     RecyclerView.Adapter<SectionsRecHolder>() {
@@ -23,8 +24,8 @@ class SectionsRecAdapter(
     }
 
     override fun onBindViewHolder(holder: SectionsRecHolder, position: Int) {
-        val section = sections[position]
-        holder?.bind(mContext, section)
+        val section = sections[position]!!
+        holder?.bind(mContext,section)
     }
 
     override fun getItemViewType(position: Int): Int {

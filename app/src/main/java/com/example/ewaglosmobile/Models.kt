@@ -7,20 +7,15 @@ class SectionAPI(
     val sections: ArrayList<SectionItemAPI>
 )
 
+open class Section(
+    var sections: RealmList<SectionItem> = RealmList<SectionItem>()
+) : RealmObject()
+
 class SectionItemAPI(
     val code: String,
     val color: String,
     val translations: ArrayList<SectionTranslationItemAPI>
 )
-
-open class SectionTranslationItem(
-    var language: String = "",
-    var name: String = ""
-) : RealmObject()
-
-open class Section(
-    var sections: RealmList<SectionItem> = RealmList<SectionItem>()
-) : RealmObject()
 
 open class SectionItem(
     var code: String = "",
@@ -33,6 +28,10 @@ class SectionTranslationItemAPI(
     val name: String
 )
 
+open class SectionTranslationItem(
+    var language: String = "",
+    var name: String = ""
+) : RealmObject()
 
 class SubsectionAPI(
     val subsections: ArrayList<SubsectionItemAPI>

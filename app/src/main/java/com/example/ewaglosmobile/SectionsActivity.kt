@@ -19,6 +19,8 @@ import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.realm.Realm
+import io.realm.RealmList
 
 class SectionsActivity : Activity() {
 
@@ -31,7 +33,7 @@ class SectionsActivity : Activity() {
         setContentView(R.layout.activity_sections)
 
         vRecView = findViewById<RecyclerView>(R.id.act2_recView)
-        val lan=intent.getStringExtra("lan")
+        val lan = intent.getStringExtra("lan")
 
         val o =
             createRequest("https://ewaglos.herokuapp.com/api/section?format=json")
@@ -39,9 +41,41 @@ class SectionsActivity : Activity() {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         request = o.subscribe({
-            showRecView(it.sections, lan)
+
+            val section =
+                Section(
+                    it.sections.mapTo(
+                        RealmList<SectionItem>(),
+                        { section ->
+                            SectionItem(
+                                section.code,
+                                section.color,
+                                section.translations.mapTo(RealmList<SectionTranslationItem>(),
+                                    { translation ->
+                                        SectionTranslationItem(
+                                            translation.language,
+                                            translation.name
+                                        )
+                                    })
+                            )
+                        })
+                )
+
+            Realm.getDefaultInstance().executeTransaction { realm ->
+
+                val oldList=realm.where(Section::class.java).findAll()
+                if(oldList.size>0)
+                    for(item in oldList)
+                        item.deleteFromRealm()
+
+                realm.copyToRealm(section)
+
+
+            }
+            showRecView(lan)
         }, {
             Log.e("tag", "", it)
+            showRecView(lan)
         })
     }
 
@@ -50,9 +84,17 @@ class SectionsActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecView(sectionList: ArrayList<SectionItemAPI>, lan:String) {
-        vRecView.adapter = SectionsRecAdapter(this, sectionList, lan)
-        vRecView.layoutManager = LinearLayoutManager(this)
+    fun showRecView(lan: String) {
+
+        Realm.getDefaultInstance().executeTransaction{realm->
+            val section=realm.where(Section::class.java).findAll()
+            if(section.size>0){
+                vRecView.adapter = SectionsRecAdapter(this,section[0]!!.sections,lan)
+                vRecView.layoutManager = LinearLayoutManager(this)
+            }
+        }
+
+
     }
 
 }
