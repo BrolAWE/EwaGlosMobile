@@ -61,10 +61,13 @@ class SubsectionsRecAdapter(
         return super.getItemViewType(position)
     }
 
-
 }
 
-class WordsRecAdapter(var mContext: Context, val words: ArrayList<WordItemAPI>, lan: String) :
+class WordsRecAdapter(
+    var mContext: Context,
+    val words: RealmList<WordItem>,
+    lan: String
+) :
     RecyclerView.Adapter<WordsRecHolder>() {
     val lan = lan
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsRecHolder {
@@ -78,7 +81,7 @@ class WordsRecAdapter(var mContext: Context, val words: ArrayList<WordItemAPI>, 
     }
 
     override fun onBindViewHolder(holder: WordsRecHolder, position: Int) {
-        val word = words[position]
+        val word = words[position]!!
         holder.bind(mContext, word)
     }
 

@@ -19,6 +19,8 @@ import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.realm.Realm
+import io.realm.RealmList
 
 class WordsActivity : Activity() {
 
@@ -29,20 +31,69 @@ class WordsActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_words)
 
-
         vRecView = findViewById<RecyclerView>(R.id.act4_recView)
         val str = intent.getStringExtra("tag1")
-        val lan=intent.getStringExtra("lan")
+        val lan = intent.getStringExtra("lan")
 
         val o =
-            createRequest("https://ewaglos.herokuapp.com/api/words/"+str+"?format=json")
+            createRequest("https://ewaglos.herokuapp.com/api/words/" + str + "?format=json")
                 .map { Gson().fromJson(it, WordAPI::class.java) }
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         request = o.subscribe({
-            showRecView(it.words, lan)
+
+            val word =
+                Word(
+                    it.words.mapTo(
+                        RealmList<WordItem>(),
+                        { word ->
+                            WordItem(
+                                word.code,
+                                word.image,
+                                word.translations.mapTo(
+                                    RealmList<WordTranslationItem>(),
+                                    { translation ->
+                                        WordTranslationItem(
+                                            translation.language,
+                                            translation.name,
+                                            translation.definition,
+                                            translation.comment,
+                                            translation.image_description,
+                                            translation.synonyms.mapTo(
+                                                RealmList<SynonymItem>(),
+                                                { synonym ->
+                                                    SynonymItem(synonym.synonym)
+                                                }
+                                            )
+                                        )
+                                    }),
+                                word.close_senses.mapTo(
+                                    RealmList<CloseSenseItem>(),
+                                    { closesense ->
+                                        CloseSenseItem(
+                                            closesense.close_sense
+                                        )
+                                    }
+                                )
+                            )
+                        })
+                )
+
+            Realm.getDefaultInstance().executeTransaction { realm ->
+
+                val oldList=realm.where(Word::class.java).findAll()
+                if(oldList.size>0)
+                    for(item in oldList)
+                        item.deleteFromRealm()
+
+                realm.copyToRealm(word)
+            }
+
+            showRecView(lan)
+
         }, {
             Log.e("tag", "", it)
+            showRecView(lan)
         })
     }
 
@@ -51,9 +102,14 @@ class WordsActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecView(wordList: ArrayList<WordItemAPI>, lan:String){
-        vRecView.adapter= WordsRecAdapter(this,wordList, lan)
-        vRecView.layoutManager= LinearLayoutManager(this)
+    fun showRecView(lan: String) {
+        Realm.getDefaultInstance().executeTransaction{realm->
+            val word=realm.where(Word::class.java).findAll()
+            if(word.size>0){
+                vRecView.adapter = WordsRecAdapter(this,word[0]!!.words,lan)
+                vRecView.layoutManager = LinearLayoutManager(this)
+            }
+        }
     }
 
 }

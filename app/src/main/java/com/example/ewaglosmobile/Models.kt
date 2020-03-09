@@ -67,12 +67,23 @@ class WordAPI(
     val words: ArrayList<WordItemAPI>
 )
 
+open class Word(
+    var words: RealmList<WordItem> = RealmList<WordItem>()
+) : RealmObject()
+
 class WordItemAPI(
     val code: String,
     val image: String,
     val translations: ArrayList<WordTranslationItemAPI>,
     val close_senses: ArrayList<CloseSenseItemAPI>
 )
+
+open class WordItem(
+    var code: String = "",
+    var image: String = "",
+    var translations: RealmList<WordTranslationItem> = RealmList<WordTranslationItem>(),
+    var close_senses: RealmList<CloseSenseItem> = RealmList<CloseSenseItem>()
+) : RealmObject()
 
 class WordTranslationItemAPI(
     val language: String,
@@ -83,14 +94,27 @@ class WordTranslationItemAPI(
     val synonyms: ArrayList<SynonymItemAPI>
 )
 
+open class WordTranslationItem(
+    var language: String = "",
+    var name: String = "",
+    var definition: String = "",
+    var comment: String = "",
+    var image_description: String = "",
+    var synonyms: RealmList<SynonymItem> = RealmList<SynonymItem>()
+) : RealmObject()
+
 class SynonymItemAPI(
     val synonym: String
 )
+
+open class SynonymItem(
+    var synonym: String = ""
+) : RealmObject()
 
 class CloseSenseItemAPI(
     val close_sense: String
 )
 
-
-
-
+open class CloseSenseItem(
+    var close_sense: String = ""
+) : RealmObject()

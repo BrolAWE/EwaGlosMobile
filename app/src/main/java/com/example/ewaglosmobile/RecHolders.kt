@@ -53,7 +53,7 @@ class SubsectionRecHolder(view: View, lan:String) : RecyclerView.ViewHolder(view
 
 class WordsRecHolder(view: View, lan:String):RecyclerView.ViewHolder(view){
     val lan=lan
-    fun bind(mContext: Context,word:WordItemAPI){
+    fun bind(mContext: Context,word:WordItem){
         val vTitle=itemView.findViewById<TextView>(R.id.item_title)
         val vThumb=itemView.findViewById<ImageView>(R.id.item_thumb)
         for (item in word.translations){

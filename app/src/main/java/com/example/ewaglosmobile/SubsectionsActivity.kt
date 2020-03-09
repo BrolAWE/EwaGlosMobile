@@ -21,6 +21,7 @@ import io.realm.Realm
 import io.realm.RealmList
 
 class SubsectionsActivity : Activity() {
+
     lateinit var vRecView: RecyclerView
     var request: Disposable? = null
 
@@ -67,8 +68,6 @@ class SubsectionsActivity : Activity() {
                         item.deleteFromRealm()
 
                 realm.copyToRealm(subsection)
-
-
             }
 
             showRecView(lan)
