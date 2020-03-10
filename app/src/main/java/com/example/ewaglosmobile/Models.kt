@@ -80,7 +80,7 @@ class WordItemAPI(
 
 open class WordItem(
     var code: String = "",
-    var image: String = "",
+    var image: String? = null,
     var translations: RealmList<WordTranslationItem> = RealmList<WordTranslationItem>(),
     var close_senses: RealmList<CloseSenseItem> = RealmList<CloseSenseItem>()
 ) : RealmObject()
