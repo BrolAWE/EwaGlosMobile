@@ -29,7 +29,7 @@ class SearchActivity : Activity() {
         val lan = intent.getStringExtra("lan")
 
         val o =
-            createRequest("https://ewaglos.herokuapp.com/api/search?format=json&q="+str)
+            createRequest("https://ewaglos.herokuapp.com/api/search?format=json&q=" + str)
                 .map { Gson().fromJson(it, WordAPI::class.java) }
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
@@ -71,7 +71,22 @@ class SearchActivity : Activity() {
                         })
                 )
 
-            showRecView(lan,word)
+            Realm.getDefaultInstance().executeTransaction { realm ->
+
+                val oldList = realm.where(Word::class.java).findAll()
+                if (oldList.size > 0)
+                    for (item in oldList)
+                        if (item.words.size == 0) {
+                            item.deleteFromRealm()
+                        } else {
+                            if (item.words[0]!!.code.substring(0, 6) == str)
+                                item.deleteFromRealm()
+                        }
+
+                realm.copyToRealm(word)
+            }
+
+            showRecView(lan, word)
 
 
         }, {
@@ -84,11 +99,11 @@ class SearchActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecView(lan: String,word:Word) {
-        Realm.getDefaultInstance().executeTransaction{realm->
-            val word=word
-            if(word!!.words.size>0){
-                vRecView.adapter = WordsRecAdapter(this,word!!.words,lan)
+    fun showRecView(lan: String, word: Word) {
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            val word = word
+            if (word!!.words.size > 0) {
+                vRecView.adapter = WordsRecAdapter(this, word!!.words, lan)
                 vRecView.layoutManager = LinearLayoutManager(this)
             }
         }
