@@ -71,17 +71,9 @@ class SearchActivity : Activity() {
                         })
                 )
 
-            Realm.getDefaultInstance().executeTransaction { realm ->
+            showRecView(lan,word)
 
-                val oldList=realm.where(Word::class.java).findAll()
-                if(oldList.size>0)
-                    for(item in oldList)
-                        item.deleteFromRealm()
 
-                realm.copyToRealm(word)
-            }
-
-            showRecView(lan)
         }, {
             Log.e("tag", "", it)
         })
@@ -92,11 +84,11 @@ class SearchActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecView(lan: String) {
+    fun showRecView(lan: String,word:Word) {
         Realm.getDefaultInstance().executeTransaction{realm->
-            val word=realm.where(Word::class.java).findAll()
-            if(word.size>0){
-                vRecView.adapter = WordsRecAdapter(this,word[0]!!.words,lan)
+            val word=word
+            if(word!!.words.size>0){
+                vRecView.adapter = WordsRecAdapter(this,word!!.words,lan)
                 vRecView.layoutManager = LinearLayoutManager(this)
             }
         }

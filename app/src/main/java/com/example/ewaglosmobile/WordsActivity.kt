@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -81,19 +82,25 @@ class WordsActivity : Activity() {
 
             Realm.getDefaultInstance().executeTransaction { realm ->
 
-                val oldList=realm.where(Word::class.java).findAll()
-                if(oldList.size>0)
-                    for(item in oldList)
-                        item.deleteFromRealm()
+                val oldList = realm.where(Word::class.java).findAll()
+                if (oldList.size > 0)
+                    for (item in oldList)
+                        if(item.words.size==0){
+                            item.deleteFromRealm()
+                        }
+                        else{
+                            if (item.words[0]!!.code.substring(0, 6) == str)
+                                item.deleteFromRealm()
+                        }
 
                 realm.copyToRealm(word)
             }
 
-            showRecView(lan)
+            showRecView(lan, str)
 
         }, {
             Log.e("tag", "", it)
-            showRecView(lan)
+            showRecView(lan, str)
         })
     }
 
@@ -102,12 +109,17 @@ class WordsActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecView(lan: String) {
-        Realm.getDefaultInstance().executeTransaction{realm->
-            val word=realm.where(Word::class.java).findAll()
-            if(word.size>0){
-                vRecView.adapter = WordsRecAdapter(this,word[0]!!.words,lan)
-                vRecView.layoutManager = LinearLayoutManager(this)
+    fun showRecView(lan: String, str: String) {
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            val word = realm.where(Word::class.java).findAll()
+            if (word.size > 0) {
+                for (item in word) {
+                    if(item.words.size>0)
+                        if (item.words[0]!!.code.substring(0, 6) == str) {
+                            vRecView.adapter = WordsRecAdapter(this, item!!.words, lan)
+                            vRecView.layoutManager = LinearLayoutManager(this)
+                        }
+                }
             }
         }
     }

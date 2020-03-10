@@ -62,19 +62,25 @@ class SubsectionsActivity : Activity() {
 
             Realm.getDefaultInstance().executeTransaction { realm ->
 
-                val oldList=realm.where(Subsection::class.java).findAll()
-                if(oldList.size>0)
-                    for(item in oldList)
-                        item.deleteFromRealm()
+                val oldList = realm.where(Subsection::class.java).findAll()
+                if (oldList.size > 0)
+                    for (item in oldList)
+                        if (item.subsections.size==0) {
+                            item.deleteFromRealm()
+                        }
+                        else{
+                            if (item.subsections[0]!!.code.substring(0,3) == str)
+                                item.deleteFromRealm()
+                        }
 
                 realm.copyToRealm(subsection)
             }
 
-            showRecView(lan)
+            showRecView(lan, str)
 
         }, {
             Log.e("tag", "", it)
-            showRecView(lan)
+            showRecView(lan, str)
         })
     }
 
@@ -83,12 +89,17 @@ class SubsectionsActivity : Activity() {
         super.onDestroy()
     }
 
-    fun showRecView(lan: String) {
-        Realm.getDefaultInstance().executeTransaction{realm->
-            val subsection=realm.where(Subsection::class.java).findAll()
-            if(subsection.size>0){
-                vRecView.adapter = SubsectionsRecAdapter(this,subsection[0]!!.subsections,lan)
-                vRecView.layoutManager = LinearLayoutManager(this)
+    fun showRecView(lan: String, str: String) {
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            val subsection = realm.where(Subsection::class.java).findAll()
+            if (subsection.size > 0) {
+                for (item in subsection) {
+                    if(item.subsections.size>0)
+                        if (item.subsections[0]!!.code.substring(0,3) == str) {
+                            vRecView.adapter = SubsectionsRecAdapter(this, item!!.subsections, lan)
+                            vRecView.layoutManager = LinearLayoutManager(this)
+                        }
+                }
             }
         }
     }
