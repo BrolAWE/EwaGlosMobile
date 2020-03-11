@@ -38,7 +38,7 @@ class WordActivity : Activity() {
         Realm.getDefaultInstance().executeTransaction { realm ->
             val word = realm.where(Word::class.java).findAll()
             if (word.size > 0) {
-                for(ite in word)
+                for (ite in word)
                     for (item in ite!!.words)
                         if (item.code == str) {
                             val worr = item
@@ -61,26 +61,59 @@ class WordActivity : Activity() {
                             val vCheckHR = findViewById<RadioButton>(R.id.radioButton_HR)
                             val vCheckFR = findViewById<RadioButton>(R.id.radioButton_FR)
 
-                            for (item in worr.translations) {
-                                if (item.language == "RU") {
-                                    vWord.setText(item.name)
-                                    vWordDef.setText("Определение:" + item.definition)
-                                    vWordKom.setText("Комментарий:" + item.comment)
+
+                            if (lan == "EN") {
+                                vCheckEN.setText("RU")
+                                for (item in worr.translations) {
+                                    if (item.language == "EN") {
+                                        vWord.setText(item.name)
+                                        vWordDef.setText("Definition:" + item.definition)
+                                        vWordKom.setText("Comment:" + item.comment)
+                                    }
                                 }
-                            }
-                            for (item in worr.translations) {
-                                if (item.language == "EN") {
-                                    vTranslation.setText(item.name)
-                                    vTranslationDef.setText("Definition:" + item.definition)
-                                    vTranslationKom.setText("Comment:" + item.comment)
+                                for (item in worr.translations) {
+                                    if (item.language == "RU") {
+                                        vTranslation.setText(item.name)
+                                        vTranslationDef.setText("Определение:" + item.definition)
+                                        vTranslationKom.setText("Комментарий:" + item.comment)
+                                    }
+                                }
+                            } else {
+                                if (lan == "RU") {
+                                    for (item in worr.translations) {
+                                        if (item.language == "RU") {
+                                            vWord.setText(item.name)
+                                            vWordDef.setText("Определение:" + item.definition)
+                                            vWordKom.setText("Комментарий:" + item.comment)
+                                        }
+                                    }
+                                    for (item in worr.translations) {
+                                        if (item.language == "EN") {
+                                            vTranslation.setText(item.name)
+                                            vTranslationDef.setText("Definition:" + item.definition)
+                                            vTranslationKom.setText("Comment:" + item.comment)
+                                        }
+                                    }
                                 }
                             }
                             vCheckEN.setOnClickListener {
-                                for (item in worr.translations) {
-                                    if (item.language == "EN") {
-                                        vTranslation.setText(item.name)
-                                        vTranslationDef.setText("Definition:" + item.definition)
-                                        vTranslationKom.setText("Comment:" + item.comment)
+                                if (lan == "EN") {
+                                    for (item in worr.translations) {
+                                        if (item.language == "RU") {
+                                            vTranslation.setText(item.name)
+                                            vTranslationDef.setText("Определение:" + item.definition)
+                                            vTranslationKom.setText("Комментарий:" + item.comment)
+                                        }
+                                    }
+                                } else {
+                                    if (lan == "RU") {
+                                        for (item in worr.translations) {
+                                            if (item.language == "EN") {
+                                                vTranslation.setText(item.name)
+                                                vTranslationDef.setText("Definition:" + item.definition)
+                                                vTranslationKom.setText("Comment:" + item.comment)
+                                            }
+                                        }
                                     }
                                 }
                             }

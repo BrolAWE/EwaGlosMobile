@@ -142,7 +142,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack"/>
+                        android:textColor="@color/colorBlack"
+                        android:justificationMode="inter_word"/>
 
                     <TextView
                         android:id="@+id/textView_EN_def"
@@ -150,7 +151,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack" />
+                        android:textColor="@color/colorBlack"
+                        android:justificationMode="inter_word" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -164,7 +166,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack" />
+                        android:textColor="@color/colorBlack"
+                        android:justificationMode="inter_word" />
 
                     <TextView
                         android:id="@+id/textView_EN_kom"
@@ -172,7 +175,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack"/>
+                        android:textColor="@color/colorBlack"
+                        android:justificationMode="inter_word"/>
                 </LinearLayout>
             </LinearLayout>
 
