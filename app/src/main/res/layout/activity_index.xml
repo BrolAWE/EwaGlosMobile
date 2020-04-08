@@ -9,7 +9,7 @@
         android:id="@+id/button_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="About" />
+        android:text="@string/about" />
 
     <Button
         android:id="@+id/button_open"
