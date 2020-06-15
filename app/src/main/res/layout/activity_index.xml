@@ -5,6 +5,13 @@
     android:orientation="vertical"
     android:layout_margin="8dp">
 
+    <Button
+        android:id="@+id/btn_get_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Get Location" />
+
     <RadioGroup
         android:id="@+id/radioGroup_lan"
         android:layout_width="wrap_content"
@@ -38,6 +45,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_search"
             style="@style/Widget.Ewa.Button"
@@ -48,6 +56,13 @@
             android:text="@string/search"
             />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
