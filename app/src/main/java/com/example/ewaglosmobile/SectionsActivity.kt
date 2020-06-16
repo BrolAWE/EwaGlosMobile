@@ -13,8 +13,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -25,6 +28,7 @@ import io.realm.RealmList
 class SectionsActivity : Activity() {
 
     lateinit var vRecView: RecyclerView
+    //lateinit var vRecView: MaterialCardView
     var request: Disposable? = null
 
 
@@ -32,6 +36,7 @@ class SectionsActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sections)
 
+        //vRecView = findViewById<MaterialCardView>(R.id.act2_recView)
         vRecView = findViewById<RecyclerView>(R.id.act2_recView)
         val lan = intent.getStringExtra("lan")
 
@@ -92,6 +97,7 @@ class SectionsActivity : Activity() {
             val section=realm.where(Section::class.java).findAll()
             if(section.size>0){
                 vRecView.adapter = SectionsRecAdapter(this,section[0]!!.sections,lan)
+                //vRecView.layoutManager = LinearLayoutManager(this)
                 vRecView.layoutManager = LinearLayoutManager(this)
             }
         }

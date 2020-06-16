@@ -5,4 +5,5 @@
     <string name="en">En</string>
     <string name="about">About</string>
     <string name="search">Search</string>
+    <string name="get_location">Get location</string>
 </resources>

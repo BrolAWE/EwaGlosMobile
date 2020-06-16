@@ -54,6 +54,7 @@ class IndexActivity : Activity() {
         val vCheckRu = findViewById<RadioButton>(R.id.radioButton_ru)
         val vCheckEn = findViewById<RadioButton>(R.id.radioButton_en)
         val vEditText = findViewById<EditText>(R.id.editText_search)
+        val vButtonGetLocation = findViewById<Button>(R.id.btn_get_location)
 
         vButtonOpen.setOnClickListener {
             val i = Intent(this, SectionsActivity::class.java)
@@ -65,6 +66,7 @@ class IndexActivity : Activity() {
             vButtonOpen.setText("Открыть словарь")
             vButtonAbout.setText("О проекте")
             vButtonSearch.setText("Поиск")
+            vButtonGetLocation.setText("Моё метоположение")
             lan = "RU"
         }
 
@@ -72,6 +74,7 @@ class IndexActivity : Activity() {
             vButtonOpen.setText("Open book")
             vButtonAbout.setText("About")
             vButtonSearch.setText("Search")
+            vButtonGetLocation.setText("Get location")
             lan = "EN"
         }
 

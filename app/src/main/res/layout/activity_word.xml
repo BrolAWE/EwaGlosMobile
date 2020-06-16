@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,8 +13,8 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="TODO"
-            android:layout_marginTop="@dimen/tw_margin" />
+            android:layout_marginTop="@dimen/tw_margin"
+            android:contentDescription="TODO" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -23,8 +24,8 @@
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/tw_margin">
+                android:layout_marginTop="@dimen/tw_margin"
+                android:orientation="vertical">
 
                 <RadioButton
                     android:id="@+id/radioButton_EN"
@@ -101,58 +102,58 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/tw_margin">
+                android:layout_marginLeft="@dimen/tw_margin"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/tw_margin"
                     android:layout_marginBottom="@dimen/tw_margin"
-                    android:layout_marginTop="@dimen/tw_margin">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView_RU"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:textStyle="bold"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack"/>
+                        android:layout_weight="0.5"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView_EN"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:textStyle="bold"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack" />
+                        android:layout_weight="0.5"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/tw_margin">
+                    android:layout_marginBottom="@dimen/tw_margin"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView_RU_def"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack"
-                        android:justificationMode="inter_word"/>
+                        android:layout_weight="0.5"
+                        android:justificationMode="inter_word"
+                        android:textColor="@color/colorBlack" />
 
                     <TextView
                         android:id="@+id/textView_EN_def"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack"
-                        android:justificationMode="inter_word" />
+                        android:layout_weight="0.5"
+                        android:justificationMode="inter_word"
+                        android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -164,19 +165,19 @@
                         android:id="@+id/textView_RU_kom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack"
-                        android:justificationMode="inter_word" />
+                        android:layout_weight="0.5"
+                        android:justificationMode="inter_word"
+                        android:textColor="@color/colorBlack" />
 
                     <TextView
                         android:id="@+id/textView_EN_kom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:layout_marginRight="@dimen/tw_margin"
-                        android:textColor="@color/colorBlack"
-                        android:justificationMode="inter_word"/>
+                        android:layout_weight="0.5"
+                        android:justificationMode="inter_word"
+                        android:textColor="@color/colorBlack" />
                 </LinearLayout>
             </LinearLayout>
 
