@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -97,7 +98,8 @@ class SubsectionsActivity : Activity() {
                     if(item.subsections.size>0)
                         if (item.subsections[0]!!.code.substring(0,3) == str) {
                             vRecView.adapter = SubsectionsRecAdapter(this, item!!.subsections, lan)
-                            vRecView.layoutManager = LinearLayoutManager(this)
+                            vRecView.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
+
                         }
                 }
             }

@@ -35,8 +35,6 @@ class SectionsActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sections)
-
-        //vRecView = findViewById<MaterialCardView>(R.id.act2_recView)
         vRecView = findViewById<RecyclerView>(R.id.act2_recView)
         val lan = intent.getStringExtra("lan")
 
@@ -97,8 +95,7 @@ class SectionsActivity : Activity() {
             val section=realm.where(Section::class.java).findAll()
             if(section.size>0){
                 vRecView.adapter = SectionsRecAdapter(this,section[0]!!.sections,lan)
-                //vRecView.layoutManager = LinearLayoutManager(this)
-                vRecView.layoutManager = LinearLayoutManager(this)
+                vRecView.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
             }
         }
     }

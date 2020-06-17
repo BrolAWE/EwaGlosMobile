@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -117,7 +118,7 @@ class WordsActivity : Activity() {
                     if(item.words.size>0)
                         if (item.words[0]!!.code.substring(0, 6) == str) {
                             vRecView.adapter = WordsRecAdapter(this, item!!.words, lan)
-                            vRecView.layoutManager = LinearLayoutManager(this)
+                            vRecView.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
                         }
                 }
             }

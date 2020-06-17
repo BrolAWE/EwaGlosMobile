@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
 class SectionsRecHolder(view: View,lan:String) : RecyclerView.ViewHolder(view) {
@@ -14,6 +15,7 @@ class SectionsRecHolder(view: View,lan:String) : RecyclerView.ViewHolder(view) {
     fun bind(mContext: Context, section: SectionItem) {
         val vTitle = itemView.findViewById<TextView>(R.id.item_title)
         val vThumb = itemView.findViewById<ImageView>(R.id.item_thumb)
+        //val vThumb = itemView.findViewById<MaterialCardView>(R.id.item_thumb)
         for (item in section.translations){
             if(item.language==lan){
                 vTitle.text = item.name
