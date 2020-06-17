@@ -66,7 +66,7 @@ class IndexActivity : Activity() {
             vButtonOpen.setText("Открыть словарь")
             vButtonAbout.setText("О проекте")
             vButtonSearch.setText("Поиск")
-            vButtonGetLocation.setText("Моё метоположение")
+            vButtonGetLocation.setText("Моё местоположение")
             lan = "RU"
         }
 
